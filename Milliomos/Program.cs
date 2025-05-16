@@ -12,6 +12,31 @@ namespace Milliomos
         static List<Kerdes> Questions = new List<Kerdes>();
         static List<SorKerdes> DefaultQuestions = new List<SorKerdes>();
 
+        static bool DefaultQuestion(SorKerdes question)
+        {
+            bool correctAnswer = false;
+            string[] answers = ["A", "B", "C", "D"];
+            Console.WriteLine($"Current cash: {cash}");
+            Console.WriteLine($"Current level: {level}");
+
+            Console.WriteLine($"Here is a default question:");
+            Console.WriteLine($"{question.Question}");
+
+            for (int i = 0; i < answers.Length; i++)
+            {
+                Console.WriteLine($"{answers[i]}: {question.Answers[i]}");
+            }
+
+            string userAnswer = Console.ReadLine().ToUpper();
+            if (userAnswer == question.Sequence)
+            {
+                correctAnswer = true;
+            }
+
+            Console.WriteLine();
+            return correctAnswer;
+        }
+
         static bool NormalQuestions(Kerdes question)
         {
             bool correctAnswer = false;
@@ -47,6 +72,16 @@ namespace Milliomos
             bool game = true;
 
             Console.WriteLine("Welcome to the game!");
+
+            if (DefaultQuestion(DefaultQuestions[random.Next(0, DefaultQuestions.Count)]))
+            {
+                Console.WriteLine("Congratulations! Now you are in the main game.");
+            }
+            else
+            {
+                Console.WriteLine("Wrong answer! Game over.");
+                game = false;
+            }
 
             level++;
             while (game && level < 16)
