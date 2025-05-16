@@ -8,11 +8,11 @@ namespace Milliomos
 {
     internal class Kerdes
     {
-        private int level { get; set; }
-        private string question { get; set; }
-        private string[] answers { get; set; }
-        private char correct { get; set; }
-        private string theme { get; set; }
+        private int level;
+        private string question;
+        private string[] answers;
+        private char correct;
+        private string theme;
 
         public Kerdes(int level, string question, string[] answers, char correct, string theme)
         {
@@ -23,9 +23,10 @@ namespace Milliomos
             this.theme = theme;
         }
 
-
-
-
-
+        public int Level { get => level; }
+        public string Question { get => question; }
+        public string[] Answers { get => answers; }
+        public char Correct { get => correct; }
+        public string Theme { get => theme; }
     }
 }

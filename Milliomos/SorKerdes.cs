@@ -8,10 +8,10 @@ namespace Milliomos
 {
     internal class SorKerdes
     {
-        private string question { get; set; }
-        private string[] answers { get; set; }
-        private string sequence { get; set; }
-        private string theme { get; set; }
+        private string question;
+        private string[] answers;
+        private string sequence;
+        private string theme;
 
         public SorKerdes(string question, string[] answers, string sequence, string theme)
         {
@@ -20,5 +20,10 @@ namespace Milliomos
             this.sequence = sequence;
             this.theme = theme;
         }
+
+        public string Question { get => question; }
+        public string[] Answers { get => answers; }
+        public string Sequence { get => sequence; }
+        public string Theme { get => theme; }
     }
 }

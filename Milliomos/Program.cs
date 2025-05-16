@@ -8,6 +8,7 @@ namespace Milliomos
         static int level = 0;
         static int cash = 0;
         static int fixCash = 0;
+        static Random random = new Random();
         static List<Kerdes> Questions = new List<Kerdes>();
         static List<SorKerdes> DefaultQuestions = new List<SorKerdes>();
 
@@ -27,7 +28,23 @@ namespace Milliomos
                 Console.WriteLine($"Current cash: {cash}");
                 Console.WriteLine($"Current level: {level}");
 
-                bool correctAnswer = true;
+                bool correctAnswer = false;
+                string[] answers = ["A", "B", "C", "D"];
+                Kerdes question = Questions[random.Next(0, Questions.Count)];
+                Console.WriteLine("Answer the question:");
+                Console.WriteLine($"{question.Question}");
+
+                for (int i = 0; i < answers.Length; i++)
+                {
+                    Console.WriteLine($"{answers[i]}: {question.Answers[i]}");
+                }
+
+                char userAnswer = char.ToUpper(Console.ReadKey().KeyChar);
+                if (userAnswer == question.Correct)
+                {
+                    correctAnswer = true;
+                }
+                Console.WriteLine();
 
                 if (correctAnswer)
                 {
@@ -106,6 +123,7 @@ namespace Milliomos
                 string theme = words[7];
 
                 Kerdes kerdes = new Kerdes(level, question, answers, correct, theme);
+                Questions.Add(kerdes);
             }
 
             for (int i = 0; i < lineQuestionLines.Length; i++)
