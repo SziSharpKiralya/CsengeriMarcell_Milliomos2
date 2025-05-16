@@ -5,13 +5,74 @@ namespace Milliomos
 {
     internal class Program
     {
-        static int cash = 0;
         static int level = 0;
+        static int cash = 0;
+        static int fixCash = 0;
         static List<Kerdes> Questions = new List<Kerdes>();
         static List<SorKerdes> DefaultQuestions = new List<SorKerdes>();
 
         static void StartGame()
         {
+            level = 0;
+            cash = 0;
+            fixCash = 0;
+
+            bool game = true;
+            Console.Clear();
+            Console.WriteLine("Welcome to the game!");
+
+            level++;
+            while (game && level < 16)
+            {
+                Console.WriteLine($"Current cash: {cash}");
+                Console.WriteLine($"Current level: {level}");
+
+                bool correctAnswer = true;
+
+                if (correctAnswer)
+                {
+                    switch (level)
+                    {
+                        case 1: cash = 5000; break;
+                        case 2: cash = 10000; break;
+                        case 3: cash = 25000; break;
+                        case 4: cash = 50000; break;
+                        case 5: cash = 100000; fixCash = 100000; break;
+                        case 6: cash = 200000; break;
+                        case 7: cash = 300000; break;
+                        case 8: cash = 500000; break;
+                        case 9: cash = 800000; break;
+                        case 10: cash = 1500000; fixCash = 1500000; break;
+                        case 11: cash = 3000000; break;
+                        case 12: cash = 5000000; break;
+                        case 13: cash = 10000000; break;
+                        case 14: cash = 20000000; break;
+                        case 15: cash = 40000000; break;
+                        default: Console.WriteLine("Error."); game = false; break;
+                    }
+                    Console.WriteLine($"The prize is now {cash} forint.");
+                    level++;
+                }
+                else
+                {
+                    Console.WriteLine("Wrong answer! Game over.");
+                    game = false;
+                }
+
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            if (game)
+            {
+                Console.WriteLine("Congratulations! You've completed the game.");
+            }
+            else
+            {
+                Console.WriteLine("Game over. Better luck next time!");
+            }
+
+            ShowMenu();
         }
 
         static void ShowMenu()
