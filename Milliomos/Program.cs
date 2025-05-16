@@ -12,41 +12,46 @@ namespace Milliomos
         static List<Kerdes> Questions = new List<Kerdes>();
         static List<SorKerdes> DefaultQuestions = new List<SorKerdes>();
 
+        static bool NormalQuestions(Kerdes question)
+        {
+            bool correctAnswer = false;
+            string[] answers = ["A", "B", "C", "D"];
+            Console.WriteLine($"Current cash: {cash}");
+            Console.WriteLine($"Current level: {level}");
+
+            Console.WriteLine($"Answer the question in the {question.Theme} topic:");
+            Console.WriteLine($"{question.Question}");
+
+            for (int i = 0; i < answers.Length; i++)
+            {
+                Console.WriteLine($"{answers[i]}: {question.Answers[i]}");
+            }
+
+            char userAnswer = char.ToUpper(Console.ReadKey().KeyChar);
+            if (userAnswer == question.Correct)
+            {
+                correctAnswer = true;
+            }
+
+            Console.WriteLine();
+            return correctAnswer;
+        }
+
         static void StartGame()
         {
             level = 0;
             cash = 0;
             fixCash = 0;
 
-            bool game = true;
             Console.Clear();
+            bool game = true;
+
             Console.WriteLine("Welcome to the game!");
 
             level++;
             while (game && level < 16)
             {
-                Console.WriteLine($"Current cash: {cash}");
-                Console.WriteLine($"Current level: {level}");
-
-                bool correctAnswer = false;
-                string[] answers = ["A", "B", "C", "D"];
-                Kerdes question = Questions[random.Next(0, Questions.Count)];
-                Console.WriteLine("Answer the question:");
-                Console.WriteLine($"{question.Question}");
-
-                for (int i = 0; i < answers.Length; i++)
-                {
-                    Console.WriteLine($"{answers[i]}: {question.Answers[i]}");
-                }
-
-                char userAnswer = char.ToUpper(Console.ReadKey().KeyChar);
-                if (userAnswer == question.Correct)
-                {
-                    correctAnswer = true;
-                }
-                Console.WriteLine();
-
-                if (correctAnswer)
+                if (NormalQuestions(Questions[random.Next(0, Questions.Count)]))
                 {
                     switch (level)
                     {
