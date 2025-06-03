@@ -8,6 +8,7 @@ namespace Milliomos
         static int level = 0;
         static int cash = 0;
         static int fixCash = 0;
+        static bool cheats = true;
         static Random random = new Random();
         static List<Kerdes> Questions = new List<Kerdes>();
         static List<SorKerdes> DefaultQuestions = new List<SorKerdes>();
@@ -18,10 +19,13 @@ namespace Milliomos
             string[] answers = ["A", "B", "C", "D"];
             Console.WriteLine($"Current cash: {cash}");
             Console.WriteLine($"Current level: {level}");
+            Console.WriteLine($"Current question: {question.Question}");
 
-            Console.WriteLine($"Here is a default question:");
-            Console.WriteLine($"{question.Question}");
-
+            if (cheats == true)
+            {
+                Console.WriteLine($"Answer: {question.Sequence}");
+            }
+            
             for (int i = 0; i < answers.Length; i++)
             {
                 Console.WriteLine($"{answers[i]}: {question.Answers[i]}");
@@ -33,7 +37,7 @@ namespace Milliomos
                 correctAnswer = true;
             }
 
-            Console.WriteLine();
+            Console.Clear();
             return correctAnswer;
         }
 
@@ -43,9 +47,13 @@ namespace Milliomos
             string[] answers = ["A", "B", "C", "D"];
             Console.WriteLine($"Current cash: {cash}");
             Console.WriteLine($"Current level: {level}");
+            Console.WriteLine($"Current topic: {question.Theme}");
+            Console.WriteLine($"Current question: {question.Question}");
 
-            Console.WriteLine($"Answer the question in the {question.Theme} topic:");
-            Console.WriteLine($"{question.Question}");
+            if (cheats == true)
+            {
+                Console.WriteLine($"Answer: {question.Correct}");
+            }
 
             for (int i = 0; i < answers.Length; i++)
             {
@@ -58,7 +66,8 @@ namespace Milliomos
                 correctAnswer = true;
             }
 
-            Console.WriteLine();
+
+            Console.Clear();
             return correctAnswer;
         }
 
@@ -73,13 +82,8 @@ namespace Milliomos
 
             Console.WriteLine("Welcome to the game!");
 
-            if (DefaultQuestion(DefaultQuestions[random.Next(0, DefaultQuestions.Count)]))
+            if (!DefaultQuestion(DefaultQuestions[random.Next(0, DefaultQuestions.Count)]))
             {
-                Console.WriteLine("Congratulations! Now you are in the main game.");
-            }
-            else
-            {
-                Console.WriteLine("Wrong answer! Game over.");
                 game = false;
             }
 
@@ -108,17 +112,15 @@ namespace Milliomos
                         default: Console.WriteLine("Error."); game = false; break;
                     }
                     Console.WriteLine($"The prize is now {cash} forint.");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                    Console.Clear();
                     level++;
                 }
                 else
                 {
-                    Console.WriteLine("Wrong answer! Game over.");
                     game = false;
                 }
-
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
-                Console.Clear();
             }
             if (game)
             {
@@ -128,6 +130,10 @@ namespace Milliomos
             {
                 Console.WriteLine("Game over. Better luck next time!");
             }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            Console.Clear();
 
             ShowMenu();
         }
@@ -142,7 +148,7 @@ namespace Milliomos
             {
                 case "1": StartGame(); break;
                 case "2": Environment.Exit(0); break;
-                default: Console.WriteLine("Invalid choice. Please try again."); ShowMenu(); break;
+                default: Console.Clear(); Console.WriteLine("Invalid choice. Please try again."); Console.ReadKey(); Console.Clear(); ShowMenu(); break;
             }
         }
 
